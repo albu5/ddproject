@@ -1,0 +1,2 @@
+model_checkpoint_path: "/home/ashish/Desktop/activityClassification/models/ActivityLSTM-256.ckpt"
+all_model_checkpoint_paths: "/home/ashish/Desktop/activityClassification/models/ActivityLSTM-256.ckpt"
