@@ -1,0 +1,1 @@
+CNN+LSTM training not happening, issue raised on github
