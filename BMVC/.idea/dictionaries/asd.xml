@@ -6,6 +6,8 @@
       <w>disp</w>
       <w>imagenet</w>
       <w>lstm</w>
+      <w>posenet</w>
+      <w>pred</w>
       <w>relu</w>
       <w>resnet</w>
       <w>softmax</w>

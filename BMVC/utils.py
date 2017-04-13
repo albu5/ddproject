@@ -1,6 +1,7 @@
 import numpy as np
 import os
 from random import choice as choose
+from numpy import genfromtxt
 from random import randint
 from keras.applications.resnet50 import preprocess_input
 from keras.preprocessing import image
@@ -8,6 +9,7 @@ from keras.preprocessing import image
 
 nex = 1
 curr_pos = 0
+
 
 def get_immediate_subdirectories(a_dir):
     return [os.path.join(a_dir, name) for name in os.listdir(a_dir)
@@ -141,3 +143,31 @@ def get_batch_image(data_dir, batch_size, seq_len):
     x = x[np.array(good_ex), :, :]
     y = y[np.array(good_ex), :, :]
     return x.astype(np.float32), y.astype(np.float32)
+
+
+def get_image_names_and_labels(data_dir):
+    labels_ind = genfromtxt(os.path.join(data_dir, 'labels.txt'))-1
+    labels = np.zeros((labels_ind.shape[0], 8))
+    labels[np.arange(labels_ind.shape[0]).astype(np.int), labels_ind.astype(np.int)] = 1
+    img_list = []
+    for i in range(labels.shape[0]):
+        img_list.append(os.path.join(data_dir, '%d.jpg' % (i + 1)))
+    return img_list, labels
+
+
+def get_parse_batch(batch_size, img_list, labels, height, width, n_classes=8):
+    n_files = len(img_list)
+    batch_images = np.zeros((batch_size, height, width, 3), dtype=np.float32)
+    batch_labels = np.zeros((batch_size, n_classes), dtype=np.float32)
+
+    # good_ids = []
+    for i in range(batch_size):
+        idx = randint(0, n_files - 1)
+        img = image.load_img(img_list[idx], target_size=(224, 224))
+        img = image.img_to_array(img)
+        img = np.expand_dims(img, axis=0)
+        img = preprocess_input(img)
+        labels_i = labels[idx, :]
+        batch_images[i, :, :, :] = img
+        batch_labels[i, :] = labels_i
+    return batch_images, batch_labels
