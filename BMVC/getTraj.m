@@ -2,7 +2,7 @@
 datadir = './ActivityDataset';
 sequences = dir([datadir, filesep, 'seq*']);
 delt = inf;
-outdir = [datadir filesep 'TrajectoriesLong'];
+outdir = [datadir filesep 'ActionCNN'];
 
 %%
 if(~exist(outdir, 'dir'))

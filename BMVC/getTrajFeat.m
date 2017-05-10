@@ -41,11 +41,12 @@ for idx = 1:44
                 pf = ped.pose(t:t+delt-1);
                 af = ped.action(t:t+delt-1);
                 fvec = horzcat(B2(:)', B3(:)',B4(:)',B5(:)',...
-                               mean(R2), mean(R3), mean(R4), mean(R5), ...
-                               pf(:)', 8-pf(:)');
+                    mean(R2), mean(R3), mean(R4), mean(R5), ...
+                    pf(:)', 8-pf(:)');
+                fvec2 = [B2(2), B3(2), B4(2), B5(2)];
                 label = mode(af);
                 if label == 0, t = t+1;continue;end
-                trainX = vertcat(trainX,fvec);
+                trainX = vertcat(trainX,fvec2);
                 trainY = vertcat(trainY,label);
                 t = t + ceil(sqrt(label)*delt/2);
             else
@@ -81,11 +82,12 @@ for idx = 1:44
                 pf = ped.pose(t:t+delt-1);
                 af = ped.action(t:t+delt-1);
                 fvec = horzcat(B2(:)', B3(:)',B4(:)',B5(:)',...
-                               mean(R2), mean(R3), mean(R4), mean(R5), ...
-                               pf(:)', 8-pf(:)');
+                    mean(R2), mean(R3), mean(R4), mean(R5), ...
+                    pf(:)', 8-pf(:)');
+                fvec2 = [B2(2), B3(2), B4(2), B5(2)];
                 label = mode(af);
                 if label == 0, t = t+1;continue;end
-                testX = vertcat(testX,fvec);
+                testX = vertcat(testX,fvec2);
                 testY = vertcat(testY,label);
                 t = t + ceil(sqrt(label)*delt/2);
             else
